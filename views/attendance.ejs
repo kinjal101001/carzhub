@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--Custom CSS-->
+  <link rel="stylesheet" href="styles.css">
+  <!--Semantic-UI CSS-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <title>Staff Attendance</title>
+  <style>
+    body {
+      line-height: 1.6;
+      margin: 2em;
+    }
+
+    th {
+      color: #000000;
+      padding: 0.5em 1em;
+      font-size: 18px;
+    }
+
+    td {
+      border-top: 2px solid #eee;
+      padding: 0.5em 1em;
+    }
+
+    input {
+      cursor: pointer;
+    }
+
+    /* Column types */
+    th.missed-col {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    td.missed-col {
+      background-color: #ffecec;
+      color: #dc3545;
+      text-align: center;
+      width: 100px;
+      font-size: 20px;
+    }
+
+    /* Column types */
+    th.present-col {
+      background-color: #378673;
+      color: #fff;
+    }
+
+    td.present-col {
+      background-color: #defcec;
+      color: #378673;
+      text-align: center;
+      width: 100px;
+      font-size: 20px;
+    }
+
+    .name-col {
+      text-align: left;
+      width: 150px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    /* Additional CSS for dropdown styling */
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* Styling for dropdown container */
+    .dropdown-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .dropdown-container h1 {
+      margin-right: 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .name-col {
+        width: auto;
+      }
+    }
+
+    /* Allow table to be horizontally scrollable on small screens */
+    @media (max-width: 500px) {
+      table {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      th,
+      td {
+        padding: 0.3em 0.6em;
+      }
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+
+    /* Add this CSS to adjust the checkbox size */
+    .attend-col input[type='checkbox'] {
+      transform: scale(1.4);
+      /* Adjust this value to make the checkbox larger or smaller */
+    }
+
+    /**/
+    /* Media queries for responsive design */
+    @media (max-width: 768px) {
+      /* Adjustments for tablets and small screens */
+    }
+
+   
+
+    /* Make images responsive */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+
+   
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .name-col {
+                width: auto;
+            }
+
+            .attend-col input[type='checkbox'] {
+                transform: scale(1); /* Adjust this value to make the checkbox normal size */
+            }
+        }
+
+        /* Enhance responsiveness by allowing horizontal scrolling */
+        @media (max-width: 500px) {
+            table {
+                width: 100%;
+                max-width: 100%; /* Set a max-width to limit table expansion */
+                overflow-x: auto; /* Enable horizontal scrolling */
+            }
+
+            th{
+              background-color: #3B495E;
+            }
+            td {
+                padding: 0.3em 0.6em;
+            }
+        }
+  </style>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<body style="background: linear-gradient(to right, #e9edf1 47%, #e9edf1 100%); margin: 0; padding: 0;">
+
+  <body>
+    <!--Vertical Navbar-->
+    <div class="vertical-nav" id="sidebar" style="background-color: #3B495E;">
+      <div class="mt-4 mb-1" style="background: linear-gradient(to top, #3B495E 0%, #3B495E 68%);">
+        <div class="d-flex flex-column align-items-center">
+          <img id="uploadedImage" src="carzhub-bg.png" alt="..." width="70" class="mb-2 rounded-circle shadow-sm">
+          <div class="text-center">
+            <h4 class="m-0 text-white" id="shopName"
+              style="font-weight: 200; font-style: italic; font-size: medium; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+              Carz
+              Hub</h4>
+
+
+          </div>
+        </div>
+      </div>
+
+
+      <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+        MAIN
+      </h5>
+
+      <ul class="nav flex-column mb-0" style="background-color: #3B495E;">
+        <li class="nav-item">
+          <a href="/" class="nav-link text-light font-italic"
+            style="background: linear-gradient(to right, #D2D2D2 0%, #D2D2D2 68%);">
+            <p class="text-dark"><i class="fas fa-home" style="margin-right: 12px;"></i>
+              Dashboard
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/billing" class="nav-link text-light font-italic">
+            <i class="fas fa-bell" style="margin-right: 15px;"></i>
+            Reminder
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/sales_filter" class="nav-link text-light font-italic">
+            <i class="fas fa-file-contract" style="margin-right: 15px;"></i>
+            Sales
+          </a>
+        </li>
+
+
+        <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+          CUSTOMER
+        </h5>
+
+        <ul class="nav flex-column mb-0" style="background-color: #3B495E;">
+          <li class="nav-item">
+            <a href="/walking" class="nav-link text-light font-italic">
+              <i class="fa fa-user" style="margin-right: 15px;"></i>
+              Walking customer
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/vvip" class="nav-link text-light font-italic">
+              <i class="fas fa-user-lock" style="margin-right: 11px;"></i>
+              VVIP customer
+
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/membership" class="nav-link text-light font-italic">
+              <i class="far fa-address-book" style="margin-right: 15px;"></i>
+              Membership package
+            </a>
+          </li>
+        </ul>
+
+        <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+          STAFF
+        </h5>
+
+        <ul class="nav flex-column mb-0" style="background-color: #3B495E;">
+          <li class="nav-item">
+            <a href="/attendance" class="nav-link text-light font-italic">
+              <i class="fas fa-user-plus" style="margin-right: 15px;"></i>
+              Staff Attendance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/records" class="nav-link text-light font-italic">
+              <i class="fas fa-users" style="margin-right: 15px;"></i>
+              Staff Records
+            </a>
+          </li>
+        </ul>
+
+        <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+          SETTING
+        </h5>
+
+        <div class="d-flex flex-column align-items-start">
+          <button id="editTitleBtn" class="btn btn-link text-white">
+            <i class="far fa-edit" style="margin-right: 20px;"></i>Edit Title
+          </button>
+          <input type="text" id="titleInput" style="display: none;">
+          <button id="saveTitleBtn" class="btn btn-link text-white" style="display: none;">
+            <i class="far fa-save" style="margin-right: 20px;"></i>Save Title
+          </button>
+
+          <input type="file" id="imageInput" style="display: none;">
+          <button id="uploadImageBtn" class="btn btn-link text-white">
+            <i class="fas fa-upload" style="margin-right: 20px;"></i>Upload Photo
+          </button>
+          <button id="saveImageBtn" class="btn btn-link text-white" style="display: none;">
+            <i class="far fa-save" style="margin-right: 20px;"></i>Save Photo
+          </button>
+        </div>
+
+
+
+        <h5 class="ui horizontal divider header " style="color: #E4E4E4;">
+          LOGOUT
+        </h5>
+
+        <form action="/logout?_method=DELETE" method="POST">
+          <div class="text-center marginTop-10 mb-4">
+            <button type="submit" class="btn btn-danger" style="width: 100px;">
+              <p class="text-white">LOGOUT</p>
+            </button>
+          </div>
+        </form>
+    </div>
+    <!-- End vertical navbar -->
+
+
+
+    <!-- Page content holder -->
+    <div class="page-content p-5" id="content"
+      style="background: linear-gradient(to right, #e9edf1 47%, #e9edf1 100%);">
+      <!-- Toggle button -->
+      <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
+          class="align justify icon"></i><small class="text-uppercase font-weight-bold">Menu</small></button>
+
+      <!-- Page content -->
+
+      <h1>Staff Attendance</h1>
+
+      <div style="
+    display: flex;
+    justify-content: center;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: small;
+    margin-bottom: 20px;
+  ">
+        <h1 style="font-weight: bold;">Attendance of Month:</h1>
+        <select name="monthSelect" id="monthSelect" style="margin-left: 10px; font-size: 20px;">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <select name="yearSelect" id="yearSelect" style="margin-left: 10px;font-size: 20px;">
+          <!-- Year options will be generated by JavaScript -->
+        </select>
+      </div>
+
+      <!-- Add staff input and button -->
+      <div style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
+        <input type="text" id="newStaffName" class="form-control " placeholder="New Staff Name"
+          style="margin-right: 20px; width: 400px;">
+        <button id="addStaffButton" class="btn btn-primary" style="width:150px; height: 60px;">Add Staff</button>
+        <button id="deleteStaffButton" class="btn btn-danger ms-2" style="width:150px;height: 60px;">Delete
+          Staff</button>
+      </div>
+      <!-- Table Content Goes Here -->
+      <div style="display: flex; justify-content: center">
+        <table class="table table-light">
+          <thead>
+            <tr>
+              <th class="name-col">Staff Name</th>
+              <!-- Dynamically generated day columns -->
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="student">
+              <td class="name-col"></td>
+              <!-- Student attendance checkboxes will be dynamically generated -->
+
+            </tr>
+            <!-- Repeat for other students -->
+          </tbody>
+        </table>
+      </div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 30px; margin-bottom: 30px;">
+        <button id="saveButton" class="btn"
+          style="width: 200px; font-size: 18px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;background-color: #3B495E;color: #ccc;">SAVE</button>
+      </div>
+
+
+    </div>
+
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"></script>
+    <!-- Semnatic-UI Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script>
+      $(function () {
+        // Sidebar toggle behavior
+        $('#sidebarCollapse').on('click', function () {
+          $('#sidebar, #content').toggleClass('active');
+        });
+      });
+      $(document).ready(function () {
+
+        const yearSelect = document.getElementById("yearSelect");
+        const monthSelect = document.getElementById("monthSelect");
+        const $tableHeaders = $("thead th");
+        const $tbody = $("tbody");
+
+        const currentYear = new Date().getFullYear();
+        const currentMonth = new Date().getMonth() + 1;
+        const yearsToShow = 5;
+
+        // Populate year select dropdown with options for the next 5 years
+        for (let i = 0; i < yearsToShow; i++) {
+          const yearOption = document.createElement("option");
+          yearOption.value = currentYear + i;
+          yearOption.textContent = currentYear + i;
+          yearSelect.appendChild(yearOption);
+        }
+
+        function generateTableHeaders(daysInMonth) {
+          $tableHeaders.parent().empty();
+          const $headerRow = $('<tr><th class="name-col">Staff Name</th></tr>');
+
+          const selectedMonth = parseInt(monthSelect.value); // Add this line
+
+          for (let i = 1; i <= daysInMonth; i++) {
+            const dayIndex = new Date(currentYear, selectedMonth - 1, i).getDay();
+            const th = `<th class="day-${i}">${i}<br>${dayNames[dayIndex]}</th>`;
+            $headerRow.append(th);
+          }
+
+          $headerRow.append('<th class="present-col">Present Days</th><th class="missed-col">Leave Days</th>');
+          $tbody.empty().append($headerRow);
+
+          // Generate staff rows and attendance checkboxes
+          addedStaff.forEach((staffName) => {
+            const $staffRow = $(`<tr class="student"><td class="name-col">${staffName}</td></tr>`);
+            for (let i = 1; i <= daysInMonth; i++) {
+              const td = `<td class="attend-col"><input type="checkbox"></td>`;
+              $staffRow.append(td);
+            }
+            $staffRow.append('<td class="present-col">0</td><td class="missed-col">0</td>');
+            $tbody.append($staffRow);
+          });
+        }
+
+
+
+        // Function to generate table headers based on selected month
+        function generateTableHeaders(daysInMonth) {
+          $tableHeaders.parent().empty();
+          const $headerRow = $('<tr><th class="name-col">Staff Name</th></tr>');
+          for (let i = 1; i <= daysInMonth; i++) {
+            const th = `<th class="day-${i}">${i}</th>`;
+            $headerRow.append(th);
+          }
+          $headerRow.append('<th class="present-col">Present Days</th><th class="missed-col">Leave Days</th>');
+          $tbody.empty().append($headerRow);
+
+          // Generate staff rows and attendance checkboxes
+          addedStaff.forEach((staffName) => {
+            const $staffRow = $(`<tr class="student"><td class="name-col">${staffName}</td></tr>`);
+            for (let i = 1; i <= daysInMonth; i++) {
+              const td = `<td class="attend-col"><input type="checkbox"></td>`;
+              $staffRow.append(td);
+            }
+            $staffRow.append('<td class="present-col">0</td><td class="missed-col">0</td>');
+            $tbody.append($staffRow);
+          });
+
+          // Retrieve and display attendance data for the selected month and year
+          const selectedMonth = parseInt(monthSelect.value);
+          const selectedYear = parseInt(yearSelect.value);
+          const savedAttendance = JSON.parse(localStorage.getItem("attendance")) || {};
+
+          $('.student').each(function () {
+            const staffName = $(this).find('.name-col').text();
+            const checkboxes = $(this).find('.attend-col input[type="checkbox"]');
+
+            if (savedAttendance[selectedYear] && savedAttendance[selectedYear][selectedMonth] && savedAttendance[selectedYear][selectedMonth][staffName]) {
+              const savedData = savedAttendance[selectedYear][selectedMonth][staffName];
+              checkboxes.each(function (index) {
+                $(this).prop('checked', savedData[index]);
+              });
+            } else {
+              checkboxes.prop('checked', false);
+            }
+          });
+
+          updateAttendanceCounts();
+        }
+
+
+
+        const addedStaff = JSON.parse(localStorage.getItem("addedStaff")) || [];
+        const selectedMonth = parseInt(localStorage.getItem("selectedMonth")) || currentMonth;
+
+        // Listen for changes in the month select
+        monthSelect.addEventListener("change", function () {
+          const selectedMonth = parseInt(monthSelect.value);
+          localStorage.setItem("selectedMonth", selectedMonth); // Save selected month to localStorage
+          const daysInMonth = new Date(currentYear, selectedMonth, 0).getDate();
+          generateTableHeaders(daysInMonth);
+        });
+
+        // Initial population of table based on the selected month
+        let daysInMonth = new Date(currentYear, selectedMonth, 0).getDate();
+        generateTableHeaders(daysInMonth);
+        monthSelect.value = selectedMonth; // Set month select to the selected month
+
+        updateAttendanceCounts();
+
+        // Update Attendance Counts
+        function updateAttendanceCounts() {
+          $tbody.find(".student").each(function () {
+            const $this = $(this);
+            const $checkboxes = $this.find(".attend-col input[type='checkbox']");
+            let presentCount = 0;
+            let leaveCount = 0;
+
+            $checkboxes.each(function () {
+              if ($(this).prop("checked")) {
+                presentCount++;
+              } else {
+                leaveCount++;
+              }
+            });
+
+            $this.find(".present-col").text(presentCount);
+            $this.find(".missed-col").text(leaveCount);
+          });
+        }
+
+        // Attach event delegation for checkbox clicks
+        $tbody.on("change", ".attend-col input[type='checkbox']", function () {
+          updateAttendanceCounts();
+          const studentName = $(this).closest('.student').find('.name-col').text();
+          const checkboxIndex = $(this).closest('td').index() - 1;
+          const attendanceData = JSON.parse(localStorage.getItem("attendance")) || {};
+          attendanceData[studentName] = attendanceData[studentName] || [];
+          attendanceData[studentName][checkboxIndex] = $(this).prop("checked");
+          localStorage.setItem("attendance", JSON.stringify(attendanceData));
+        });
+
+
+        // Attach event delegation for checkbox clicks
+        $tbody.on("change", ".attend-col input[type='checkbox']", function () {
+          const studentName = $(this).closest('.student').find('.name-col').text();
+          const checkboxIndex = $(this).closest('td').index() - 1;
+          const attendanceData = JSON.parse(localStorage.getItem("attendance")) || {};
+          attendanceData[studentName] = attendanceData[studentName] || [];
+          attendanceData[studentName][checkboxIndex] = $(this).prop("checked");
+          localStorage.setItem("attendance", JSON.stringify(attendanceData));
+
+          updateAttendanceCounts();
+        });
+
+        $("#addStaffButton").on("click", function () {
+          const newStaffName = $("#newStaffName").val().trim();
+          if (newStaffName) {
+            addedStaff.push(newStaffName);
+            localStorage.setItem("addedStaff", JSON.stringify(addedStaff));
+
+            const $newStaffRow = $(`
+  <tr class="student">
+    <td class="name-col">${newStaffName}</td>
+    <!-- Attendance columns will be generated here -->
+  </tr>
+`);
+            const daysInMonth = new Date(currentYear, selectedMonth, 0).getDate();
+            for (let i = 1; i <= daysInMonth; i++) {
+              const td = `<td class="attend-col"><input type="checkbox"></td>`;
+              $newStaffRow.append(td);
+            }
+
+            $newStaffRow.append('<td class="present-col">0</td><td class="missed-col">0</td>');
+            $tbody.append($newStaffRow);
+            updateAttendanceCounts();
+
+            // Add staff to attendance data in localStorage
+            const attendanceData = JSON.parse(localStorage.getItem("attendance")) || {};
+            attendanceData[newStaffName] = [];
+            $('.student').each(function () {
+              attendanceData[newStaffName].push(false);
+            });
+            localStorage.setItem("attendance", JSON.stringify(attendanceData));
+
+            $("#newStaffName").val("");
+          } else {
+            alert("Please enter a valid staff name.");
+          }
+        });
+
+        $("#deleteStaffButton").on("click", function () {
+          const selectedStaff = prompt("Enter the name of the staff to delete:");
+          if (selectedStaff) {
+            const $studentRows = $tbody.find(".student");
+            $studentRows.each(function () {
+              const $this = $(this);
+              const staffName = $this.find(".name-col").text();
+              if (staffName === selectedStaff) {
+                $this.remove();
+                addedStaff.splice(addedStaff.indexOf(selectedStaff), 1);
+                localStorage.setItem("addedStaff", JSON.stringify(addedStaff));
+              }
+            });
+            // Remove staff from attendance data in localStorage
+            const attendanceData = JSON.parse(localStorage.getItem("attendance")) || {};
+            delete attendanceData[selectedStaff];
+            localStorage.setItem("attendance", JSON.stringify(attendanceData));
+            updateAttendanceCounts();
+          }
+        });
+        //////////
+        // Initialize attendance data in localStorage if it doesn't exist
+        if (!localStorage.getItem("attendance")) {
+          const initialAttendance = {};
+          $('.student').each(function () {
+            const name = $(this).find('.name-col').text();
+            const $allCheckboxes = $(this).find('td input');
+            initialAttendance[name] = [];
+
+            $allCheckboxes.each(function () {
+              initialAttendance[name].push(false);
+            });
+          });
+
+          localStorage.setItem("attendance", JSON.stringify(initialAttendance));
+        }
+
+
+        // Function to save attendance data to localStorage
+        function saveAttendanceData(attendanceData) {
+          localStorage.setItem("attendance", JSON.stringify(attendanceData));
+        }
+
+        // Save button click event
+        $("#saveButton").on("click", function () {
+          const attendanceData = {};
+          $tbody.find(".student").each(function () {
+            const staffName = $(this).find(".name-col").text();
+            const $checkboxes = $(this).find(".attend-col input[type='checkbox']");
+            attendanceData[staffName] = [];
+            $checkboxes.each(function () {
+              attendanceData[staffName].push($(this).prop("checked"));
+            });
+          });
+          saveAttendanceData(attendanceData);
+          updateAttendanceCounts();
+          alert("Attendance data saved successfully.");
+        });
+
+        // Initialize attendance data in localStorage if it doesn't exist
+        // Initialize attendance data in localStorage if it doesn't exist
+        if (!localStorage.getItem("attendance")) {
+          const initialAttendance = {};
+
+          // Loop through all months and initialize attendance data
+          for (let month = 1; month <= 12; month++) {
+            initialAttendance[month] = {};
+            $('.student').each(function () {
+              const name = $(this).find('.name-col').text();
+              initialAttendance[month][name] = [];
+              const $allCheckboxes = $(this).find('td input');
+              $allCheckboxes.each(function () {
+                initialAttendance[month][name].push(false);
+              });
+            });
+          }
+
+          localStorage.setItem("attendance", JSON.stringify(initialAttendance));
+
+        } else {
+          // Retrieve saved attendance data and update checkboxes
+          const savedAttendance = JSON.parse(localStorage.getItem("attendance"));
+          $(".student").each(function () {
+            const name = $(this).find(".name-col").text();
+            const $checkboxes = $(this).find(".attend-col input[type='checkbox']");
+            const attendanceArray = savedAttendance[name];
+            $checkboxes.each(function (index) {
+              $(this).prop("checked", attendanceArray[index]);
+            });
+          });
+          updateAttendanceCounts();
+        }
+      });
+
+
+      //
+    
+      
+    
+      //edit name button 
+      $(document).ready(function () {
+        // Check if the title is already stored in Local Storage
+        const savedTitle = localStorage.getItem('customTitle');
+        if (savedTitle) {
+          $('#shopName').text(savedTitle);
+        }
+
+        // Handle the Edit Title button click
+        $('#editTitleBtn').click(function () {
+          $('#editTitleBtn').hide();
+          $('#shopName').hide();
+          $('#titleInput').show().val($('#shopName').text());
+          $('#saveTitleBtn').show();
+        });
+
+        // Handle the Save Title button click
+        $('#saveTitleBtn').click(function () {
+          const newTitle = $('#titleInput').val();
+          $('#shopName').text(newTitle);
+          $('#titleInput').hide();
+          $('#saveTitleBtn').hide();
+          $('#shopName').show();
+
+          // Save the new title to Local Storage
+          localStorage.setItem('customTitle', newTitle);
+        });
+        //for photo
+        const imageInput = document.getElementById("imageInput");
+        const uploadImageBtn = document.getElementById("uploadImageBtn");
+        const saveImageBtn = document.getElementById("saveImageBtn");
+        const uploadedImage = document.getElementById("uploadedImage");
+
+        // Check if there's a saved image in localStorage and display it
+        const savedImageData = localStorage.getItem("uploadedImageData");
+        if (savedImageData) {
+          uploadedImage.src = savedImageData;
+          saveImageBtn.style.display = "inline-block";
+        }
+
+        uploadImageBtn.addEventListener("click", () => {
+          imageInput.click();
+        });
+
+        imageInput.addEventListener("change", () => {
+          const file = imageInput.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              uploadedImage.src = event.target.result;
+              saveImageBtn.style.display = "inline-block";
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        saveImageBtn.addEventListener("click", () => {
+          const imageSrc = uploadedImage.src;
+          localStorage.setItem("uploadedImageData", imageSrc);
+          alert("Image saved!");
+        });
+      });
+    </script>
+
+  </body>
+
+</html>

@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="styles.css">
+    <!--Semantic-UI CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <title>Walking Customer</title>
+
+    <style>
+      
+       .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h3 {
+  font-size: 30px;
+  font-weight: 600;
+  background-image: linear-gradient(to left, #3B495E, #818893);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text
+    }
+      /* Style for the selected option */
+      .selected {
+        background-color: #3498db;
+        color: #fff;
+      }
+      .toggle {
+      display: flex;
+      width: 120px;
+      height: 40px;
+      background-color: #ccc;
+      border-radius: 20px;
+      cursor: pointer;
+      overflow: hidden;
+      margin-left: 10px; /* Adjust the margin value as needed */
+
+    }
+    
+    .option {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+      transition: 0.2s;
+    }
+    
+    .option.select {
+      background-color: #3B495E;
+      color: #fff;
+    }
+    
+    .option.notselect {
+      background-color: #fff;
+      color: #333;
+    }
+    .sale-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+
+    .form-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .form-group {
+  display: inline-block;
+  margin-right: 20px; /* Adjust as needed */
+  vertical-align: top; /* Align elements at the top */
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 150px; /* Adjust as needed */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+}
+
+
+    .form-button {
+      background-color: #3B495E;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      width: 130px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .share-button {
+    background-color: #c3cedf;
+    color: #3B495E;
+    border: 2px solid #3B495E; /* Added border with 2px width */
+    border-radius: 5px;
+    width: 130px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold; /* Make the text bold */
+  }
+    </style>
+  </head>
+  <body style="background: linear-gradient(to right, #e9edf1 47%, #e9edf1 100%); margin: 0; padding: 0;">
+
+    <!--Vertical Navbar-->
+    <div class="vertical-nav" id="sidebar" style="background-color: #3B495E;">
+      <div class="mt-4 mb-1" style="background: linear-gradient(to top, #3B495E 0%, #3B495E 68%);">
+        <div class="d-flex flex-column align-items-center">
+          <img id="uploadedImage" src="carzhub-bg.png" alt="..." width="70" class="mb-2 rounded-circle shadow-sm">
+          <div class="text-center">
+            <h4 class="m-0 text-white" id="shopName" style="font-weight: 200; font-style: italic; font-size: medium; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Carz
+              Hub</h4>
+  
+  
+          </div>
+        </div>
+      </div>
+  
+  
+      <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+        MAIN
+      </h5>
+  
+      <ul class="nav flex-column mb-0" style="background-color: #3B495E;">
+        <li class="nav-item">
+          <a href="/" class="nav-link text-light font-italic"
+            style="background: linear-gradient(to right, #D2D2D2 0%, #D2D2D2 68%);">
+            <p class="text-dark"><i class="fas fa-home" style="margin-right: 12px;"></i>
+              Dashboard
+            </p>
+          </a>
+        </li>
+  
+        <li class="nav-item">
+          <a href="/billing" class="nav-link text-light font-italic">
+            <i class="fas fa-bell" style="margin-right: 15px;"></i>
+            Reminder
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/sales_filter" class="nav-link text-light font-italic">
+            <i class="fas fa-file-contract" style="margin-right: 15px;"></i>
+            Sales
+          </a>
+        </li>
+  
+  
+        <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+          CUSTOMER
+        </h5>
+  
+        <ul class="nav flex-column mb-0" style="background-color: #3B495E;">
+          <li class="nav-item">
+            <a href="/walking" class="nav-link text-light font-italic">
+              <i class="fa fa-user" style="margin-right: 15px;"></i>
+              Walking customer
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/vvip" class="nav-link text-light font-italic">
+              <i class="fas fa-user-lock" style="margin-right: 11px;"></i>
+              VVIP customer
+  
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/membership" class="nav-link text-light font-italic">
+              <i class="far fa-address-book" style="margin-right: 15px;"></i>
+              Membership package
+            </a>
+          </li>
+        </ul>
+  
+        <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+          STAFF
+        </h5>
+  
+        <ul class="nav flex-column mb-0" style="background-color: #3B495E;">
+          <li class="nav-item">
+            <a href="/attendance" class="nav-link text-light font-italic">
+              <i class="fas fa-user-plus" style="margin-right: 15px;"></i>
+              Staff Attendance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/records" class="nav-link text-light font-italic">
+              <i class="fas fa-users" style="margin-right: 15px;"></i>
+              Staff Records
+            </a>
+          </li>
+        </ul>
+  
+        <h5 class="ui horizontal divider header" style="color: #E4E4E4;">
+          SETTING
+        </h5>
+   
+        <div class="d-flex flex-column align-items-start">
+          <button id="editTitleBtn" class="btn btn-link text-white">
+              <i class="far fa-edit" style="margin-right: 20px;"></i>Edit Title
+          </button>
+          <input type="text" id="titleInput" style="display: none;">
+          <button id="saveTitleBtn" class="btn btn-link text-white" style="display: none;">
+              <i class="far fa-save" style="margin-right: 20px;"></i>Save Title
+          </button>
+      
+          <input type="file" id="imageInput" style="display: none;">
+          <button id="uploadImageBtn" class="btn btn-link text-white">
+              <i class="fas fa-upload" style="margin-right: 20px;"></i>Upload Photo
+          </button>
+          <button id="saveImageBtn" class="btn btn-link text-white" style="display: none;">
+              <i class="far fa-save" style="margin-right: 20px;"></i>Save Photo
+          </button>
+      </div>
+      
+  
+  
+        <h5 class="ui horizontal divider header " style="color: #E4E4E4;">
+          LOGOUT
+        </h5>
+  
+        <form action="/logout?_method=DELETE" method="POST">
+          <div class="text-center marginTop-10 mb-4">
+            <button type="submit" class="btn btn-danger" style="width: 100px;">
+              <p class="text-white">LOGOUT</p>
+            </button>
+          </div>
+        </form>
+    </div>
+  <!-- End vertical navbar -->
+  
+  <!-- Page content holder -->
+  <div class="page-content p-5" id="content" style="background: linear-gradient(to right, #e9edf1 47%, #e9edf1 100%);">
+    <!-- Toggle button -->
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="align justify icon"></i><small class="text-uppercase font-weight-bold">Menu</small></button>
+  
+    <!-- Page content -->
+<div class="header">
+    <h3>WALKING CUSTOMER</h3>
+</div>
+   <!-- <center><img class="ui medium rounded image" src="brand.svg"></center>-->
+    <br>
+    <div class="sale-header">
+      <h2>Sale | </h2>
+      <div class="toggle" id="toggleSwitch">
+        <div class="option cash">Cash</div>
+        <div class="option credit">Credit</div>
+      </div>
+    </div>
+
+    <div class="form-container">
+    <h5  style="font-weight:bold; margin-bottom: 10px;">Basic Information</h5>
+    <form>
+      <div class="form-group">
+        <label for="customerName" class="form-label">Customer Name</label>
+        <input type="text" id="customerName" class="form-input" placeholder="Enter customer name" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="tel" id="phoneNumber" class="form-input" placeholder="Enter phone number" required>
+      </div>
+      <div class="form-group">
+        <label for="carNumber" class="form-label">Car Number</label>
+        <input type="text" id="carNumber" class="form-input" placeholder="Enter car number" required>
+      </div>
+      <div class="form-group">
+        <label for="carModel" class="form-label">Car Model</label>
+        <input type="text" id="carModel" class="form-input" placeholder="Enter car model" required>
+      </div>
+      <div class="form-group">
+        <label for="totalServices" class="form-label">Total Services</label>
+        <input type="number" id="totalServices" class="form-input" placeholder="Enter total services" required>
+      </div>
+      <div class="form-group">
+        <label for="serviceDate" class="form-label">Service Date</label>
+        <input type="date" id="serviceDate" class="form-input" required>
+      </div>  
+      <div class="form-group">
+        <label for="invoiceNumber" class="form-label">Invoice Number</label>
+        <input type="text" id="invoiceNumber" class="form-input" placeholder="Enter invoice number" required>
+      </div>
+
+
+      <h5  style="font-weight:bold; margin-bottom: 10px; margin-top: 15px;">Service Details</h5>
+
+ <!-- Responsive table container -->
+ <div class="table-responsive ">
+  <!-- Table for item details -->
+  <table class="table table-hover table-light" id="itemTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>TYPE OF SERVICE</th>
+        <th>SERVICE DATE</th>
+        <th>QTY</th>
+        <th>PRICE</th>
+        <th>TAX</th>
+        <th>AMOUNT</th>
+        <th>TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><input type="text" name="type_of_service[]" /></td>
+        <td><input type="date" name="service_date[]" /></td>
+        <td><input type="number" name="qty[]" /></td>
+        <td><input type="number" name="price[]" /></td>
+        <td><input type="number" name="tax[]" /></td>
+        <td><input type="number" name="amount[]" /></td>
+        <td><input type="number" name="total[]" /></td>
+      </tr>
+      <!-- Initial row -->
+
+      <!-- You can start with more rows if needed -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Add Row button -->
+<div style="margin-top: 10px;">
+  <button type="button" class="form-button" id="addRowButton">Add Row</button>
+</div>
+      
+      <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+        <button type="button" class="share-button" id="generateLink" style="margin-right: 10px;font-weight: bold;">SAVE</button>
+        <button type="submit" class="form-button"  style="font-weight: bold;">DOWNLOAD</button>
+      </div>
+
+    </form>
+    </div>
+</div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#sidebarCollapse').on('click', function() {
+      $('#sidebar, #content').toggleClass('active');
+    });
+
+    const cashOption = document.querySelector('.cash');
+    const creditOption = document.querySelector('.credit');
+
+    cashOption.addEventListener('click', () => {
+      cashOption.classList.add('select');
+      creditOption.classList.remove('select');
+      cashOption.classList.remove('notselect');
+      creditOption.classList.add('notselect');
+      console.log('Cash option clicked');
+    });
+
+    creditOption.addEventListener('click', () => {
+      creditOption.classList.add('select');
+      cashOption.classList.remove('select');
+      creditOption.classList.remove('notselect');
+      cashOption.classList.add('notselect');
+      console.log('Credit option clicked');
+    });
+
+    // Make "Cash" selected by default
+    cashOption.classList.add('select');
+    creditOption.classList.add('notselect');
+  });
+  //table
+  document.addEventListener('DOMContentLoaded', function () {
+    const addRowButton = document.getElementById('addRowButton');
+    const tableBody = document.querySelector('#itemTable tbody');
+
+    addRowButton.addEventListener('click', function () {
+      const newRow = `
+        <tr>
+          <td></td>
+          <td><input type="text" name="type_of_service[]" /></td>
+          <td><input type="date" name="service_date[]" /></td>
+          <td><input type="number" name="qty[]" /></td>
+          <td><input type="number" name="price[]" /></td>
+          <td><input type="number" name="tax[]" /></td>
+          <td><input type="number" name="amount[]" /></td>
+          <td><input type="number" name="total[]" /></td>
+          <td><button type="button" class="delete-row-button" style="color: red;"><i class="fas fa-trash-alt"></i></button></td>
+        </tr>
+      `;
+      tableBody.insertAdjacentHTML('beforeend', newRow);
+
+      // Attach click event to delete row button
+      const deleteButtons = document.querySelectorAll('.delete-row-button');
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const row = this.closest('tr');
+          row.remove();
+          updateRowNumbers();
+        });
+      });
+
+      // Update the row numbers for existing rows
+      updateRowNumbers();
+    });
+
+    function updateRowNumbers() {
+      const rows = tableBody.querySelectorAll('tr');
+      rows.forEach((row, index) => {
+        row.querySelector('td:first-child').textContent = index + 1;
+      });
+    }
+  });
+
+  //
+  
+      //edit name button 
+      $(document).ready(function () {
+        // Check if the title is already stored in Local Storage
+        const savedTitle = localStorage.getItem('customTitle');
+        if (savedTitle) {
+          $('#shopName').text(savedTitle);
+        }
+
+        // Handle the Edit Title button click
+        $('#editTitleBtn').click(function () {
+          $('#editTitleBtn').hide();
+          $('#shopName').hide();
+          $('#titleInput').show().val($('#shopName').text());
+          $('#saveTitleBtn').show();
+        });
+
+        // Handle the Save Title button click
+        $('#saveTitleBtn').click(function () {
+          const newTitle = $('#titleInput').val();
+          $('#shopName').text(newTitle);
+          $('#titleInput').hide();
+          $('#saveTitleBtn').hide();
+          $('#shopName').show();
+
+          // Save the new title to Local Storage
+          localStorage.setItem('customTitle', newTitle);
+        });
+        //for photo
+        const imageInput = document.getElementById("imageInput");
+        const uploadImageBtn = document.getElementById("uploadImageBtn");
+        const saveImageBtn = document.getElementById("saveImageBtn");
+        const uploadedImage = document.getElementById("uploadedImage");
+
+        // Check if there's a saved image in localStorage and display it
+        const savedImageData = localStorage.getItem("uploadedImageData");
+        if (savedImageData) {
+          uploadedImage.src = savedImageData;
+          saveImageBtn.style.display = "inline-block";
+        }
+
+        uploadImageBtn.addEventListener("click", () => {
+          imageInput.click();
+        });
+
+        imageInput.addEventListener("change", () => {
+          const file = imageInput.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              uploadedImage.src = event.target.result;
+              saveImageBtn.style.display = "inline-block";
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        saveImageBtn.addEventListener("click", () => {
+          const imageSrc = uploadedImage.src;
+          localStorage.setItem("uploadedImageData", imageSrc);
+          alert("Image saved!");
+        });
+      });
+</script>
+
+</html>
