@@ -23,9 +23,9 @@ db_user_name=root
 
 db_password=root1234
 
-login_id=admin@xyz.com
+login_id=admin@carzhub.com
 
-login_password=admin1234
+login_password=@carzhub
 ```
   
 
