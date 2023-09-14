@@ -60,7 +60,7 @@
         </li>
   
         <li class="nav-item">
-          <a href="/billing" class="nav-link text-light font-italic">
+          <a href="/reminder" class="nav-link text-light font-italic">
             <i class="fas fa-bell" style="margin-right: 15px;"></i>
             Reminder
           </a>
@@ -167,97 +167,8 @@
     <br>
     <br>
     <div class="ui fluid container">
-    <form action="/submitbill" method="POST">
-    <table class="ui inverted pink celled table celled tbl_code_with_mark" id="myTable">
-      <thead>
-        <tr style="background: linear-gradient(to left, #3B495E 0%, #3B495E 68%);">
-          <th>Item No.</th>
-          <th>Item ID</th>
-          <th>Item Name</th>
-          <th>Category</th>
-          <th>Brand</th>
-          <th>Size</th>
-          <th>Amount</th>
-          <th>Phone Number</th>
-        </tr>
-      </thead>
+    
       
-      <tbody>
-        
-        <tr>
-          <td class="table-light"><center><input type="text" id="number1" value=1 name="number1" style="border:0;outline:0" size="4" disabled/></center></td>
-          <td class="table-light">
-            <div class="form-floating">
-            <input type="text" class="form-control" id="itemid1" name="itemid1"  size="4" required>
-            <label for="floatingInput">ID</label>
-            <br/>
-            <button type="button" class="btn btn btn-outline-secondary"  id="fetchitem1" onclick="fetchitem()">Get Item</button>
-            </div>
-        </td>
-          <td class="table-light">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="itemname1" name="itemname1" size="4" required >
-              <label for="floatingInput">Name</label>
-              
-          </div>
-          </td>
-          <td class="table-light"> 
-            <div class="form-floating">
-              <select class="form-select" aria-label="Default select example" name="category1" id="category1" required > 
-                <% category.forEach(function(order){ %>
-                  <option name="<%= order.Category %>" value="<%= order.Category %>"><%= order.Category %></option>
-                <% }); %>
-            
-              </select>
-                <label for="floatingInput">Category</label>
-            </div>
-          </td>
-          <td class="table-light">
-            <div class="form-floating">
-              <select class="form-select" aria-label="Default select example" name="brand1" id="brand1" required >
-                <% brand.forEach(function(order){ %>
-                <option value="<%= order.Brand %>"><%= order.Brand %></option>
-                <% }); %>
-           
-              </select>
-                <label for="floatingInput">Brand</label>
-            </div>
-          </td>
-          <td class="table-light">
-            <div class="form-floating">
-              <select class="form-select" aria-label="Default select example" name="size1" id="size1" required >
-                <% size.forEach(function(order){ %>
-                  <option value="<%= order.Size %>"><%= order.Size %></option>
-                <% }); %>
-           
-              </select>
-              <label for="floatingInput">Size</label>
-            </div>
-          </td>
-          <td class="table-light"> 
-            <div class="form-floating">
-              <input type="number" class="form-control" id="amount1" name="amount1" value=0 min="0" max="99999" required>
-              <label for="floatingInput">Amount <i class="rupee sign icon"></i></label>
-              
-          </div>
-          </td>
-          <td class="table-light">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="customer1" name="customer1" size="4" required >
-              <label for="floatingInput">Phone<i class="phone volume icon"></i></label>
-            </div>
-          </td>
-        </tr>
-     
-        </tbody>
-        
-     
-        </table>
-        <center><button type="submit" class="ui submit button" style="background-color: #e9edf1;color: #3B495E; border: 2px solid #3B495E;" >Submit</button>
-          
-      </form>
-      
-      <button class="ui submit button" style="background-color: #3B495E;color: #fff;" type="button" onclick="downloadInvoice()">Download Bill</button></center>
 
      
     </div>

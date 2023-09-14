@@ -17,155 +17,54 @@
 
   <title>Staff Attendance</title>
   <style>
-    body {
-      line-height: 1.6;
-      margin: 2em;
-    }
+   body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #e9edf1 100%, #e9edf1 100%);
+    line-height: 1.6;
+  }
 
-    th {
-      color: #000000;
-      padding: 0.5em 1em;
-      font-size: 18px;
-    }
+  .nav-item i {
+    margin-right: 10px;
+  }
 
-    td {
-      border-top: 2px solid #eee;
-      padding: 0.5em 1em;
-    }
+  .header {
+    text-align: center;
+  }
 
-    input {
-      cursor: pointer;
-    }
+  .header h3 {
+    font-size: 30px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #3B495E, #818893);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
 
-    /* Column types */
-    th.missed-col {
-      background-color: #dc3545;
-      color: #fff;
-    }
+  /* Rest of your existing CSS styles... */
 
-    td.missed-col {
-      background-color: #ffecec;
-      color: #dc3545;
-      text-align: center;
-      width: 100px;
-      font-size: 20px;
-    }
+  th {
+    color: #000000;
+    padding: 0.5em 1em;
+    font-size: 18px;
+  }
 
-    /* Column types */
-    th.present-col {
-      background-color: #378673;
-      color: #fff;
-    }
+  td {
+    border-top: 2px solid #eee;
+    padding: 0.5em 1em;
+  }
 
-    td.present-col {
-      background-color: #defcec;
-      color: #378673;
-      text-align: center;
-      width: 100px;
-      font-size: 20px;
-    }
+  input {
+    cursor: pointer;
+  }
 
-    .name-col {
-      text-align: left;
-      width: 150px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: bold;
-      font-size: 20px;
-    }
-
-    /* Additional CSS for dropdown styling */
-    select {
-      padding: 8px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    /* Styling for dropdown container */
-    .dropdown-container {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .dropdown-container h1 {
-      margin-right: 20px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .name-col {
-        width: auto;
-      }
-    }
-
-    /* Allow table to be horizontally scrollable on small screens */
-    @media (max-width: 500px) {
-      table {
-        width: 100%;
-        overflow-x: auto;
-      }
-
-      th,
-      td {
-        padding: 0.3em 0.6em;
-      }
-    }
-
-    .btn {
-      padding: 10px 20px;
-      font-size: 18px;
-    }
-
-    /* Add this CSS to adjust the checkbox size */
-    .attend-col input[type='checkbox'] {
-      transform: scale(1.4);
-      /* Adjust this value to make the checkbox larger or smaller */
-    }
-
-    /**/
-    /* Media queries for responsive design */
-    @media (max-width: 768px) {
-      /* Adjustments for tablets and small screens */
-    }
-
-   
-
-    /* Make images responsive */
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+  .save_btn {
+    padding: 10px 20px;
+    font-size: 18px;
+  }
 
 
-   
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .name-col {
-                width: auto;
-            }
-
-            .attend-col input[type='checkbox'] {
-                transform: scale(1); /* Adjust this value to make the checkbox normal size */
-            }
-        }
-
-        /* Enhance responsiveness by allowing horizontal scrolling */
-        @media (max-width: 500px) {
-            table {
-                width: 100%;
-                max-width: 100%; /* Set a max-width to limit table expansion */
-                overflow-x: auto; /* Enable horizontal scrolling */
-            }
-
-            th{
-              background-color: #3B495E;
-            }
-            td {
-                padding: 0.3em 0.6em;
-            }
-        }
-  </style>
+</style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -204,7 +103,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="/billing" class="nav-link text-light font-italic">
+          <a href="/reminder" class="nav-link text-light font-italic">
             <i class="fas fa-bell" style="margin-right: 15px;"></i>
             Reminder
           </a>
@@ -369,7 +268,7 @@
         </table>
       </div>
       <div style="display: flex; justify-content: flex-end; margin-top: 30px; margin-bottom: 30px;">
-        <button id="saveButton" class="btn"
+        <button id="saveButton" class="save_btn"
           style="width: 200px; font-size: 18px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;background-color: #3B495E;color: #ccc;">SAVE</button>
       </div>
 
